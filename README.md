@@ -1,1 +1,765 @@
-# larryjho.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Larry Pérez — Multiplayer Game Developer. Godot 4 specialist with expertise in game server architecture, WebSocket networking, and AWS deployment.">
+  <meta property="og:title" content="Larry Pérez — Multiplayer Game Developer">
+  <meta property="og:description" content="Godot 4 · GDScript · Multiplayer · WebSocket · AWS EC2 · 5+ years production">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://larryjho.github.io">
+  <title>Larry Pérez — Game Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Karla:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080B14;
+      --surface: #0D1221;
+      --surface-2: #131A2E;
+      --border: #1C2742;
+      --text: #E8E6DF;
+      --muted: #8490AA;
+      --accent: #FFBA08;
+      --accent-glow: rgba(255, 186, 8, 0.14);
+      --teal: #00C9A7;
+      --teal-glow: rgba(0, 201, 167, 0.1);
+      --ff-display: 'Syne', sans-serif;
+      --ff-body: 'Karla', sans-serif;
+      --ff-mono: 'Fira Code', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::selection { background: var(--accent); color: #000; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 2rem;
+      background: rgba(8, 11, 20, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mark {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+    .nav-mark em { color: var(--accent); font-style: normal; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 4rem;
+      overflow: hidden;
+    }
+    #net-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+    h1 .accent { color: var(--accent); }
+    .hero-sub {
+      font-family: var(--ff-mono);
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      color: var(--teal);
+      margin-bottom: 2.5rem;
+      height: 1.6em;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.35s forwards;
+    }
+    .cursor {
+      display: inline-block;
+      width: 0.6em;
+      height: 1.1em;
+      background: var(--teal);
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.5s forwards;
+    }
+    .pill {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.65s forwards;
+    }
+    .btn-a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.9rem;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-a:hover { background: #fff; transform: translateY(-2px); }
+    .btn-b {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.9rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-b:hover { border-color: var(--teal); color: var(--teal); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-num {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+    h2 {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+    .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.1s; }
+    .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; }
+    .reveal.d4 { transition-delay: 0.4s; }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--bg); }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card:hover { border-color: rgba(255,186,8,0.4); transform: translateY(-3px); }
+    .card:hover::after { opacity: 1; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .badge {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border: 1px solid;
+    }
+    .badge-c  { color: var(--accent);         border-color: rgba(255,186,8,0.28);    background: var(--accent-glow); }
+    .badge-j  { color: var(--teal);            border-color: rgba(0,201,167,0.28);    background: var(--teal-glow); }
+    .badge-p  { color: #A78BFA;                border-color: rgba(167,139,250,0.28);  background: rgba(167,139,250,0.08); }
+    .badge-l  { color: #FB7185;                border-color: rgba(251,113,133,0.28);  background: rgba(251,113,133,0.08); }
+    .card-year {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .card h3 {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: 1.45rem;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.25rem;
+    }
+    .card-role {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .card p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: #B0BAD0;
+      margin-bottom: 1.4rem;
+    }
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
+    }
+    .tech {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      padding: 0.18rem 0.52rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .links-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .lnk {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .lnk:hover { color: var(--accent); }
+    .lnk.primary { color: var(--accent); }
+    .lnk.primary:hover { color: #fff; }
+    .lnk-dead { font-family: var(--ff-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--border); font-style: italic; }
+
+    /* ─── SKILLS ─── */
+    #skills {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      border: 1px solid var(--border);
+      gap: 0;
+    }
+    .skill {
+      padding: 1.2rem 1.4rem;
+      border: 1px solid transparent;
+      transition: background 0.2s;
+    }
+    .skill:hover { background: var(--surface-2); }
+    .skill-name {
+      font-family: var(--ff-mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .bar {
+      height: 2px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--teal));
+      transition: width 1.1s cubic-bezier(0.4,0,0.2,1);
+    }
+    .bar-fill.go { width: var(--w); }
+    .skill-lvl {
+      font-family: var(--ff-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--bg); }
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-note {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2.25rem;
+      line-height: 1.7;
+    }
+    .email-link {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: clamp(1.4rem, 4vw, 2.3rem);
+      letter-spacing: -0.025em;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+    .email-link:hover { color: var(--accent); }
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .social {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .social:hover { color: var(--accent); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 1.75rem 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--border);
+    }
+    footer span { color: var(--muted); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 980px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.25rem; }
+      nav ul { gap: 1.25rem; }
+      nav a { font-size: 0.65rem; }
+      #hero { padding: 6rem 1.25rem 3rem; }
+      .section-wrap { padding: 4rem 1.25rem; }
+    }
+    @media (max-width: 440px) {
+      nav ul { display: none; }
+      .hero-actions { flex-direction: column; }
+      .socials { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-mark">LP<em>.</em></div>
+  <ul>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="net-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Godot · Multiplayer · Backend</div>
+    <h1>Larry<br><span class="accent">Pérez.</span></h1>
+    <div class="hero-sub" id="hero-sub"><span class="cursor"></span></div>
+    <div class="hero-pills">
+      <span class="pill">Godot 4</span>
+      <span class="pill">GDScript</span>
+      <span class="pill">MultiplayerSynchronizer</span>
+      <span class="pill">WebSocket</span>
+      <span class="pill">AWS EC2</span>
+      <span class="pill">Ruby / RGSS</span>
+      <span class="pill">Python</span>
+      <span class="pill">C#</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-a">View Projects ↓</a>
+      <a href="mailto:larryjho@gmail.com" class="btn-b">↗ Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div id="projects">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2>Projects</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- MiniMetaMon -->
+      <div class="card reveal d1">
+        <div class="card-top">
+          <span class="badge badge-c">Contract</span>
+          <span class="card-year">Jun 2025 – Present</span>
+        </div>
+        <h3>MiniMetaMon</h3>
+        <p class="card-role">2D RPG · Multiplayer Architecture · Remote Team (USA)</p>
+        <p>Contracted to build the game server and playable client in Godot 4 for an international remote team. Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend microservice via HTTP for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2.</p>
+        <div class="tech-row">
+          <span class="tech">Godot 4</span>
+          <span class="tech">GDScript</span>
+          <span class="tech">MultiplayerSynchronizer</span>
+          <span class="tech">RPCs</span>
+          <span class="tech">WebSocket</span>
+          <span class="tech">HTTP / REST</span>
+          <span class="tech">AWS EC2</span>
+          <span class="tech">Web + Desktop</span>
+        </div>
+        <div class="links-row">
+          <a href="https://www.minimetamon.com/" target="_blank" rel="noopener" class="lnk primary">↗ View Site</a>
+        </div>
+      </div>
+
+      <!-- Croakzilla -->
+      <div class="card reveal d2">
+        <div class="card-top">
+          <span class="badge badge-j">Game Jam</span>
+          <span class="card-year">May 2026</span>
+        </div>
+        <h3>The HUNT of Croakzilla</h3>
+        <p class="card-role">Roguelike Shooter · GoedWare Boss Battle Edition · Solo</p>
+        <p>Top-down roguelike shooter developed and shipped solo in Godot 4 in one week. Implemented procedural level generation, enemy-wave spawning, and a full combat loop with multiple enemy types. Playable in browser, Windows build available. Source code open on GitHub.</p>
+        <div class="tech-row">
+          <span class="tech">Godot 4</span>
+          <span class="tech">GDScript</span>
+          <span class="tech">Procedural Generation</span>
+          <span class="tech">HTML5 Export</span>
+          <span class="tech">Pixel Art</span>
+          <span class="tech">Original SFX</span>
+        </div>
+        <div class="links-row">
+          <a href="https://larryjho.itch.io/the-hunt-of-croakzilla" target="_blank" rel="noopener" class="lnk primary">▶ Play in Browser</a>
+          <a href="https://github.com/LarryJho/Croakzilla" target="_blank" rel="noopener" class="lnk">↗ Source Code</a>
+        </div>
+      </div>
+
+      <!-- Lottery Apps -->
+      <div class="card reveal d3">
+        <div class="card-top">
+          <span class="badge badge-p">Production</span>
+          <span class="card-year">Apr 2024 – Jun 2025</span>
+        </div>
+        <h3>5 Mobile Apps — Grupo Gran SOL</h3>
+        <p class="card-role">Game Developer · 14-Month Engagement</p>
+        <p>Delivered 5 production mobile applications in Godot 4 across a 14-month engagement — all shipped and paid. Integrated real-time WebSocket connections and HTTP endpoints for live data handling across all applications. Client successfully scaled to a web platform following completed mobile delivery.</p>
+        <div class="tech-row">
+          <span class="tech">Godot 4</span>
+          <span class="tech">GDScript</span>
+          <span class="tech">WebSocket</span>
+          <span class="tech">HTTP Endpoints</span>
+          <span class="tech">Mobile Export</span>
+          <span class="tech">Web Export</span>
+        </div>
+        <div class="links-row">
+          <span class="lnk-dead">Proprietary — screenshots available on request</span>
+        </div>
+      </div>
+
+      <!-- Histrobea -->
+      <div class="card reveal d4">
+        <div class="card-top">
+          <span class="badge badge-l">Lead Programmer</span>
+          <span class="card-year">May 2022 – Dec 2025</span>
+        </div>
+        <h3>Histrobea Chronicles</h3>
+        <p class="card-role">RPG · International Indie Team · HoopsAndHiphop (YouTube)</p>
+        <p>Lead Programmer on an international indie team for YouTuber Coy Palfreyman. Redesigned the core combat loop within a third-party Ruby/RGSS framework — engineered chained multi-attack mechanics with a custom mana layer, preserving full upstream compatibility. Patched the framework's native type system to strip domain-specific dependencies from compiled output.</p>
+        <div class="tech-row">
+          <span class="tech">Ruby</span>
+          <span class="tech">RGSS</span>
+          <span class="tech">Framework Patching</span>
+          <span class="tech">Combat Systems</span>
+          <span class="tech">Sprite Animation</span>
+        </div>
+        <div class="links-row">
+          <a href="https://www.youtube.com/watch?v=gfbsh5uWMhI&list=PLjcoatQU2O1JY3HN3WCYbE-UK6lUA2F-e&index=5" target="_blank" rel="noopener" class="lnk primary">▶ Watch on YouTube</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2>Skills</h2>
+      <div class="line"></div>
+    </div>
+    <div class="skills-grid reveal" id="skills-grid">
+      <div class="skill"><div class="skill-name">Godot Engine 4</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced · 5 years</div></div>
+      <div class="skill"><div class="skill-name">GDScript</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced</div></div>
+      <div class="skill"><div class="skill-name">Multiplayer / Netcode</div><div class="bar"><div class="bar-fill" style="--w:88%"></div></div><div class="skill-lvl">Advanced</div></div>
+      <div class="skill"><div class="skill-name">Ruby / RGSS</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced · 3.5 years</div></div>
+      <div class="skill"><div class="skill-name">WebSocket / HTTP</div><div class="bar"><div class="bar-fill" style="--w:70%"></div></div><div class="skill-lvl">Intermediate</div></div>
+      <div class="skill"><div class="skill-name">AWS EC2</div><div class="bar"><div class="bar-fill" style="--w:65%"></div></div><div class="skill-lvl">Intermediate</div></div>
+      <div class="skill"><div class="skill-name">Python</div><div class="bar"><div class="bar-fill" style="--w:65%"></div></div><div class="skill-lvl">Intermediate</div></div>
+      <div class="skill"><div class="skill-name">C#</div><div class="bar"><div class="bar-fill" style="--w:55%"></div></div><div class="skill-lvl">Intermediate</div></div>
+      <div class="skill"><div class="skill-name">SQL / MongoDB</div><div class="bar"><div class="bar-fill" style="--w:60%"></div></div><div class="skill-lvl">Intermediate</div></div>
+      <div class="skill"><div class="skill-name">Unity</div><div class="bar"><div class="bar-fill" style="--w:30%"></div></div><div class="skill-lvl">Familiar</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div class="section-head reveal" style="justify-content:center">
+        <span class="section-num">03</span>
+        <h2>Contact</h2>
+      </div>
+      <p class="contact-note reveal d1">Open to remote contracts, studio roles, and freelance game dev collaborations.<br>C1 English. Based in Caracas, Venezuela.</p>
+      <a href="mailto:larryjho@gmail.com" class="email-link reveal d2">larryjho@gmail.com</a>
+      <div class="socials reveal d3">
+        <a href="https://www.linkedin.com/in/larryjho/" target="_blank" rel="noopener" class="social">↗ LinkedIn</a>
+        <a href="https://github.com/LarryJho/" target="_blank" rel="noopener" class="social">↗ GitHub</a>
+        <a href="https://larryjho.itch.io/" target="_blank" rel="noopener" class="social">↗ itch.io</a>
+        <a href="https://www.youtube.com/@LarryJho" target="_blank" rel="noopener" class="social">↗ YouTube</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Larry Pérez © 2026</span> · Caracas, Venezuela · <span>Built with no frameworks — deployed on GitHub Pages</span>
+</footer>
+
+<script>
+  /* ── Network canvas ── */
+  (function(){
+    const cv = document.getElementById('net-canvas');
+    const cx = cv.getContext('2d');
+    const N = 48, D = 185;
+    let pts = [];
+
+    function resize(){
+      cv.width  = window.innerWidth;
+      cv.height = window.innerHeight;
+    }
+    function init(){
+      pts = Array.from({length:N}, () => ({
+        x: Math.random() * cv.width,
+        y: Math.random() * cv.height,
+        vx:(Math.random()-.5)*.45,
+        vy:(Math.random()-.5)*.45,
+        r: Math.random()*1.8+1.2
+      }));
+    }
+    function draw(){
+      cx.clearRect(0,0,cv.width,cv.height);
+      for(let i=0;i<pts.length;i++){
+        for(let j=i+1;j<pts.length;j++){
+          const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+          const d=Math.sqrt(dx*dx+dy*dy);
+          if(d<D){
+            cx.beginPath();
+            cx.moveTo(pts[i].x,pts[i].y);
+            cx.lineTo(pts[j].x,pts[j].y);
+            cx.strokeStyle=`rgba(255,186,8,${(1-d/D)*.11})`;
+            cx.lineWidth=.8;
+            cx.stroke();
+          }
+        }
+      }
+      for(const p of pts){
+        cx.beginPath();
+        cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        cx.fillStyle='rgba(255,186,8,0.32)';
+        cx.fill();
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<-60) p.x=cv.width+60;
+        if(p.x>cv.width+60) p.x=-60;
+        if(p.y<-60) p.y=cv.height+60;
+        if(p.y>cv.height+60) p.y=-60;
+      }
+      requestAnimationFrame(draw);
+    }
+    resize(); init(); draw();
+    window.addEventListener('resize',()=>{resize();init();});
+  })();
+
+  /* ── Typed subtitle ── */
+  (function(){
+    const el = document.getElementById('hero-sub');
+    const txt = 'Multiplayer Game Developer';
+    let i = 0;
+    function step(){
+      if(i<=txt.length){
+        el.innerHTML = txt.slice(0,i) + '<span class="cursor"></span>';
+        i++;
+        setTimeout(step, i===1 ? 700 : 62);
+      }
+    }
+    setTimeout(step, 900);
+  })();
+
+  /* ── Scroll reveal + skill bars ── */
+  (function(){
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        e.target.classList.add('in');
+        if(e.target.id==='skills-grid'){
+          e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('go'));
+        }
+        obs.unobserve(e.target);
+      });
+    },{threshold:0.12});
+
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  })();
+</script>
+</body>
+</html>
