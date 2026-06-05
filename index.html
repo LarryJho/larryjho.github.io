@@ -81,7 +81,7 @@
     }
     nav a:hover { color: var(--accent); }
 
-    /* ─── HERO ─── */
+    /* ─── DEVELOPER ─── */
     #hero {
       position: relative;
       min-height: 100svh;
@@ -95,14 +95,14 @@
       inset: 0;
       pointer-events: none;
     }
-    .hero-inner {
+    .developer-inner {
       position: relative;
       z-index: 1;
       max-width: 1100px;
       margin: 0 auto;
       width: 100%;
     }
-    .hero-eyebrow {
+    .developer-eyebrow {
       font-family: var(--ff-mono);
       font-size: 0.72rem;
       letter-spacing: 0.18em;
@@ -115,7 +115,7 @@
       opacity: 0;
       animation: fadeUp 0.6s ease 0.1s forwards;
     }
-    .hero-eyebrow::before {
+    .developer-eyebrow::before {
       content: '';
       display: block;
       width: 2rem;
@@ -134,7 +134,7 @@
       animation: fadeUp 0.7s ease 0.2s forwards;
     }
     h1 .accent { color: var(--accent); }
-    .hero-sub {
+    .developer-sub {
       font-family: var(--ff-mono);
       font-size: clamp(0.85rem, 1.8vw, 1.1rem);
       color: var(--teal);
@@ -153,7 +153,7 @@
       animation: blink 1s step-end infinite;
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .hero-pills {
+    .developer-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
@@ -175,7 +175,7 @@
       color: var(--accent);
       background: var(--accent-glow);
     }
-    .hero-actions {
+    .developer-actions {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -363,6 +363,75 @@
     .lnk.primary:hover { color: #fff; }
     .lnk-dead { font-family: var(--ff-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--border); font-style: italic; }
 
+    /* ─── TESTIMONIAL ─── */
+    #testimonial {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .testimonial-inner {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+    .testimonial-quote {
+      position: relative;
+      padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+      border-left: 2px solid var(--accent);
+      background: var(--surface);
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .testimonial-quote::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.6rem;
+      left: 1rem;
+      font-family: var(--ff-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    .testimonial-text {
+      font-family: var(--ff-body);
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      line-height: 1.85;
+      color: #C8D0E4;
+      font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+    .testimonial-author {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .testimonial-name {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .testimonial-meta {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .testimonial-meta a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .testimonial-meta a:hover { color: #fff; }
+    .testimonial-project {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.55rem;
+    }
+
     /* ─── SKILLS ─── */
     #skills {
       background: var(--surface);
@@ -482,7 +551,7 @@
     }
     @media (max-width: 440px) {
       nav ul { display: none; }
-      .hero-actions { flex-direction: column; }
+      .developer-actions { flex-direction: column; }
       .socials { gap: 1.25rem; }
     }
   </style>
@@ -502,21 +571,21 @@
 <!-- HERO -->
 <section id="hero">
   <canvas id="net-canvas"></canvas>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Godot · Multiplayer · Backend</div>
+  <div class="developer-inner">
+    <div class="developer-eyebrow">Godot · Multiplayer · Backend</div>
     <h1>Larry<br><span class="accent">Pérez.</span></h1>
-    <div class="hero-sub" id="hero-sub"><span class="cursor"></span></div>
-    <div class="hero-pills">
+    <div class="developer-sub" id="hero-sub"><span class="cursor"></span></div>
+    <div class="developer-pills">
       <span class="pill">Godot 4</span>
       <span class="pill">GDScript</span>
-      <span class="pill">MultiplayerSynchronizer</span>
+      <span class="pill">Multiplayer Netcode</span>
       <span class="pill">WebSocket</span>
       <span class="pill">AWS EC2</span>
       <span class="pill">Ruby / RGSS</span>
       <span class="pill">Python</span>
       <span class="pill">C#</span>
     </div>
-    <div class="hero-actions">
+    <div class="developer-actions">
       <a href="#projects" class="btn-a">View Projects ↓</a>
       <a href="mailto:larryjho@gmail.com" class="btn-b">↗ Get in Touch</a>
     </div>
@@ -542,7 +611,7 @@
         </div>
         <h3>MiniMetaMon</h3>
         <p class="card-role">2D RPG · Multiplayer Architecture · Remote Team (USA)</p>
-        <p>Contracted to build the game server and playable client in Godot 4 for an international remote team. Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend microservice via HTTP for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2.</p>
+        <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend microservice via HTTP for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance.</p>
         <div class="tech-row">
           <span class="tech">Godot 4</span>
           <span class="tech">GDScript</span>
@@ -589,7 +658,7 @@
         </div>
         <h3>5 Mobile Apps — Grupo Gran SOL</h3>
         <p class="card-role">Game Developer · 14-Month Engagement</p>
-        <p>Delivered 5 production mobile applications in Godot 4 across a 14-month engagement — all shipped and paid. Integrated real-time WebSocket connections and HTTP endpoints for live data handling across all applications. Client successfully scaled to a web platform following completed mobile delivery.</p>
+        <p>Delivered 5 production mobile applications in Godot 4 across a 14-month engagement — all delivered to production. Integrated real-time WebSocket connections and HTTP endpoints for live data handling across all applications.</p>
         <div class="tech-row">
           <span class="tech">Godot 4</span>
           <span class="tech">GDScript</span>
@@ -611,7 +680,7 @@
         </div>
         <h3>Histrobea Chronicles</h3>
         <p class="card-role">RPG · International Indie Team · HoopsAndHiphop (YouTube)</p>
-        <p>Lead Programmer on an international indie team for YouTuber Coy Palfreyman. Redesigned the core combat loop within a third-party Ruby/RGSS framework — engineered chained multi-attack mechanics with a custom mana layer, preserving full upstream compatibility. Patched the framework's native type system to strip domain-specific dependencies from compiled output.</p>
+        <p>Lead Programmer on an international indie team for YouTuber Coy Palfreyman (@hoopsandhiphop, 400K+ subscribers). Redesigned the core combat loop within a third-party Ruby/RGSS framework — engineered chained multi-attack mechanics with a custom mana layer, preserving upstream compatibility. Patched the framework's native type system to strip domain-specific dependencies from compiled output, ensuring changes survive automatic framework updates.</p>
         <div class="tech-row">
           <span class="tech">Ruby</span>
           <span class="tech">RGSS</span>
@@ -628,11 +697,35 @@
   </div>
 </div>
 
+<!-- TESTIMONIAL -->
+<div id="testimonial">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2>In Their Words</h2>
+      <div class="line"></div>
+    </div>
+    <div class="testimonial-inner reveal d1">
+      <div class="testimonial-quote">
+        <p class="testimonial-text">What has stood out to me in working with Larry is that he has been able to bring whatever idea I had to life. With this being my first game dev experience, it has all been new territory for me — I have pretty much just been working off of ideas and imagination. Despite that, he has been able to implement whatever systems, mechanics, or ideas I've had, sometimes based on feedback after viewing the game, and sometimes even just directly from scratch. That has been a huge factor in us being able to work together so well, because I know that I can rely on him to realize my vision from a programming standpoint, and the project won't be held back from a lack of experience or know-how.</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Coy Palfreyman</span>
+          <span class="testimonial-meta">
+            <a href="https://www.youtube.com/@hoopsandhiphop" target="_blank" rel="noopener">@hoopsandhiphop</a>
+            &nbsp;·&nbsp; 400K+ subscribers
+          </span>
+          <span class="testimonial-project">Histrobea Chronicles · Lead Programmer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SKILLS -->
 <div id="skills">
   <div class="section-wrap">
     <div class="section-head reveal">
-      <span class="section-num">02</span>
+      <span class="section-num">03</span>
       <h2>Skills</h2>
       <div class="line"></div>
     </div>
@@ -656,7 +749,7 @@
   <div class="section-wrap">
     <div class="contact-inner">
       <div class="section-head reveal" style="justify-content:center">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>Contact</h2>
       </div>
       <p class="contact-note reveal d1">Open to remote contracts, studio roles, and freelance game dev collaborations.<br>C1 English. Based in Caracas, Venezuela.</p>
