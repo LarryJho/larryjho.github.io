@@ -260,6 +260,7 @@
     .reveal.d2 { transition-delay: 0.2s; }
     .reveal.d3 { transition-delay: 0.3s; }
     .reveal.d4 { transition-delay: 0.4s; }
+    .reveal.d5 { transition-delay: 0.5s; }
 
     /* ─── PROJECTS ─── */
     #projects { background: var(--bg); }
@@ -430,6 +431,37 @@
       color: var(--muted);
       border: 1px solid var(--border);
       padding: 0.2rem 0.55rem;
+    }
+
+    /* ─── CARD SCREENSHOTS ─── */
+    .card-subsection {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-screenshots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .card-screenshots img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: block;
+      transition: border-color 0.2s;
+    }
+    .card-screenshots img:hover { border-color: var(--accent); }
+    .card-screenshots img[src=""] {
+      background: var(--surface);
+      border: 1px dashed var(--border);
     }
 
     /* ─── SKILLS ─── */
@@ -603,8 +635,31 @@
 
     <div class="grid-2">
 
-      <!-- MiniMetaMon -->
+      <!-- Boreal -->
       <div class="card reveal d1">
+        <div class="card-top">
+          <span class="badge badge-c">Shipping 2026</span>
+          <span class="card-year">Aug 2026 – Present</span>
+        </div>
+        <h3>Boreal</h3>
+        <p class="card-role">Top-Down Action-Survival RPG · Gameplay Programmer · Luckythespacecat Studios</p>
+        <p>Joined an existing Godot 4 codebase ahead of the game's December 2026 Steam release. Work covers debugging gameplay issues, refactoring systems for maintainability, and implementing new mechanics to the studio's specifications — working directly with the project lead to translate design intent into functional systems within the established architecture.</p>
+        <div class="tech-row">
+          <span class="tech">Godot 4</span>
+          <span class="tech">GDScript</span>
+          <span class="tech">Gameplay Systems</span>
+          <span class="tech">Debugging</span>
+          <span class="tech">Refactoring</span>
+          <span class="tech">Pixel Art</span>
+          <span class="tech">Steam</span>
+        </div>
+        <div class="links-row">
+          <a href="https://store.steampowered.com/app/4653180/Boreal/" target="_blank" rel="noopener" class="lnk primary">↗ View on Steam</a>
+        </div>
+      </div>
+
+      <!-- MiniMetaMon -->
+      <div class="card reveal d2">
         <div class="card-top">
           <span class="badge badge-c">Contract</span>
           <span class="card-year">Jun 2025 – Present</span>
@@ -628,7 +683,7 @@
       </div>
 
       <!-- Croakzilla -->
-      <div class="card reveal d2">
+      <div class="card reveal d3">
         <div class="card-top">
           <span class="badge badge-j">Game Jam</span>
           <span class="card-year">May 2026</span>
@@ -651,7 +706,7 @@
       </div>
 
       <!-- Lottery Apps -->
-      <div class="card reveal d3">
+      <div class="card reveal d4">
         <div class="card-top">
           <span class="badge badge-p">Production</span>
           <span class="card-year">Apr 2024 – Jun 2025</span>
@@ -673,7 +728,7 @@
       </div>
 
       <!-- Histrobea -->
-      <div class="card reveal d4">
+      <div class="card reveal d5">
         <div class="card-top">
           <span class="badge badge-l">Lead Programmer</span>
           <span class="card-year">May 2022 – Dec 2025</span>
@@ -681,12 +736,25 @@
         <h3>Histrobea Chronicles</h3>
         <p class="card-role">RPG · International Indie Team · HoopsAndHiphop (YouTube)</p>
         <p>Lead Programmer on an international indie team for YouTuber Coy Palfreyman (@hoopsandhiphop, 400K+ subscribers). Redesigned the core combat loop within a third-party Ruby/RGSS framework — engineered chained multi-attack mechanics with a custom mana layer, preserving upstream compatibility. Patched the framework's native type system to strip domain-specific dependencies from compiled output, ensuring changes survive automatic framework updates.</p>
+
+        <p class="card-subsection">Level Design</p>
+        <p>Built all game maps from the director's hand-drawn sketches and placeholder prototypes — translating rough layout concepts and early functional mockups into playable environments with proper flow, collision layers, and visual depth across multiple tilesets.</p>
+
+        <!-- SCREENSHOTS: replace src="" with your image paths, e.g. src="img/histrobea/map-01.jpg" -->
+        <div class="card-screenshots">
+          <img src="" alt="Histrobea map area 1" title="Replace src with your screenshot path" />
+          <img src="" alt="Histrobea map area 2" title="Replace src with your screenshot path" />
+          <img src="" alt="Histrobea map area 3" title="Replace src with your screenshot path" />
+        </div>
+
         <div class="tech-row">
           <span class="tech">Ruby</span>
           <span class="tech">RGSS</span>
           <span class="tech">Framework Patching</span>
           <span class="tech">Combat Systems</span>
           <span class="tech">Sprite Animation</span>
+          <span class="tech">Level Design</span>
+          <span class="tech">TileMap</span>
         </div>
         <div class="links-row">
           <a href="https://www.youtube.com/watch?v=gfbsh5uWMhI&list=PLjcoatQU2O1JY3HN3WCYbE-UK6lUA2F-e&index=5" target="_blank" rel="noopener" class="lnk primary">▶ Watch on YouTube</a>
