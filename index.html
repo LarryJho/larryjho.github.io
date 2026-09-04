@@ -433,6 +433,16 @@
       padding: 0.2rem 0.55rem;
     }
 
+    .card-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-left: 2px solid var(--border);
+      padding-left: 0.8rem;
+      margin-top: -0.3rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
     /* ─── CARD SCREENSHOTS ─── */
     .card-subsection {
       font-family: var(--ff-mono);
@@ -670,7 +680,8 @@
         </div>
         <h3>MiniMetaMon</h3>
         <p class="card-role">2D RPG · Multiplayer Architecture · Remote Team (USA)</p>
-        <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend microservice via HTTP for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance.</p>
+        <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend HTTP microservice for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance. Also designed a large-scale multilayer TileMap world (scope under NDA).</p>
+        <p class="card-note">Note: the client is a web3-oriented franchise. My contribution was the engine and server architecture — the tokenomics layer was handled separately by the project owner.</p>
         <div class="tech-row">
           <span class="tech">Godot 4</span>
           <span class="tech">GDScript</span>
@@ -679,10 +690,11 @@
           <span class="tech">WebSocket</span>
           <span class="tech">HTTP / REST</span>
           <span class="tech">AWS EC2</span>
+          <span class="tech">TileMap</span>
           <span class="tech">Web + Desktop</span>
         </div>
         <div class="links-row">
-          <a href="https://alpha.minimetamon.com/" target="_blank" rel="noopener" class="lnk primary">↗ View Site</a>
+          <a href="https://alpha.minimetamon.com/" target="_blank" rel="noopener" class="lnk primary">↗ Project Site</a>
         </div>
       </div>
 
@@ -746,10 +758,10 @@
 
         <!-- SCREENSHOTS: level design work from Histrobea Chronicles -->
         <div class="card-screenshots">
-          <img src="img/histrobea/map-01.jpg" alt="Histrobea Chronicles level design — outdoor route with NPCs, signage and terrain transitions" loading="lazy" />
-          <img src="img/histrobea/map-02.jpg" alt="Histrobea Chronicles level design — coastal area with tall grass, cliffs and water boundaries" loading="lazy" />
-          <img src="img/histrobea/map-03.jpg" alt="Histrobea Chronicles level design — night-time rocky zone with layered pathing" loading="lazy" />
-          <img src="img/histrobea/map-04.jpg" alt="Histrobea Chronicles level design — interior map with dialogue system in use" loading="lazy" />
+          <img src="img/histrobea/map-01.jpg" alt="Histrobea Chronicles level design — outdoor area built from the director's sketches" loading="lazy" />
+          <img src="img/histrobea/map-02.jpg" alt="Histrobea Chronicles level design — terrain transitions and multi-tileset environment" loading="lazy" />
+          <img src="img/histrobea/map-03.jpg" alt="Histrobea Chronicles level design — layered pathing and collision zones" loading="lazy" />
+          <img src="img/histrobea/map-04.jpg" alt="Histrobea Chronicles level design — map layout with in-game systems in use" loading="lazy" />
         </div>
 
         <div class="tech-row">
@@ -824,7 +836,6 @@
           <span class="skill-chip primary">RPCs</span>
           <span class="skill-chip primary">WebSocket</span>
           <span class="skill-chip">Real-time state sync</span>
-          <span class="skill-chip">Lag compensation</span>
         </div>
       </div>
 
@@ -832,10 +843,9 @@
         <div class="skill-cat-label">Backend &amp; Infrastructure</div>
         <div class="skill-chips">
           <span class="skill-chip">REST / HTTP APIs</span>
-          <span class="skill-chip">Microservices</span>
+          <span class="skill-chip">HTTP microservice integration</span>
           <span class="skill-chip">AWS EC2</span>
-          <span class="skill-chip">SQL</span>
-          <span class="skill-chip">MongoDB</span>
+          <span class="skill-chip">SQL (SQLite / MySQL)</span>
         </div>
       </div>
 
