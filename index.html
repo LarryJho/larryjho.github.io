@@ -472,45 +472,47 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .skills-grid {
+    .skills-cats {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      border: 1px solid var(--border);
-      gap: 0;
+      gap: 1.6rem;
     }
-    .skill {
-      padding: 1.2rem 1.4rem;
-      border: 1px solid transparent;
-      transition: background 0.2s;
-    }
-    .skill:hover { background: var(--surface-2); }
-    .skill-name {
+    .skill-cat-label {
       font-family: var(--ff-mono);
-      font-size: 0.78rem;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.02em;
-    }
-    .bar {
-      height: 2px;
-      background: var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--accent), var(--teal));
-      transition: width 1.1s cubic-bezier(0.4,0,0.2,1);
-    }
-    .bar-fill.go { width: var(--w); }
-    .skill-lvl {
-      font-family: var(--ff-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.4rem;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .skill-cat-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .skill-chip {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      padding: 0.32rem 0.7rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .skill-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .skill-chip.primary {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
     }
 
     /* ─── CONTACT ─── */
@@ -800,17 +802,69 @@
       <h2>Skills</h2>
       <div class="line"></div>
     </div>
-    <div class="skills-grid reveal" id="skills-grid">
-      <div class="skill"><div class="skill-name">Godot Engine 4</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced · 5 years</div></div>
-      <div class="skill"><div class="skill-name">GDScript</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced</div></div>
-      <div class="skill"><div class="skill-name">Multiplayer / Netcode</div><div class="bar"><div class="bar-fill" style="--w:88%"></div></div><div class="skill-lvl">Advanced</div></div>
-      <div class="skill"><div class="skill-name">Ruby / RGSS</div><div class="bar"><div class="bar-fill" style="--w:100%"></div></div><div class="skill-lvl">Advanced · 3.5 years</div></div>
-      <div class="skill"><div class="skill-name">WebSocket / HTTP</div><div class="bar"><div class="bar-fill" style="--w:70%"></div></div><div class="skill-lvl">Intermediate</div></div>
-      <div class="skill"><div class="skill-name">AWS EC2</div><div class="bar"><div class="bar-fill" style="--w:65%"></div></div><div class="skill-lvl">Intermediate</div></div>
-      <div class="skill"><div class="skill-name">Python</div><div class="bar"><div class="bar-fill" style="--w:65%"></div></div><div class="skill-lvl">Intermediate</div></div>
-      <div class="skill"><div class="skill-name">C#</div><div class="bar"><div class="bar-fill" style="--w:55%"></div></div><div class="skill-lvl">Intermediate</div></div>
-      <div class="skill"><div class="skill-name">SQL / MongoDB</div><div class="bar"><div class="bar-fill" style="--w:60%"></div></div><div class="skill-lvl">Intermediate</div></div>
-      <div class="skill"><div class="skill-name">Unity</div><div class="bar"><div class="bar-fill" style="--w:30%"></div></div><div class="skill-lvl">Familiar</div></div>
+    <div class="skills-cats reveal" id="skills-grid">
+
+      <div>
+        <div class="skill-cat-label">Engines &amp; Languages</div>
+        <div class="skill-chips">
+          <span class="skill-chip primary">Godot 4</span>
+          <span class="skill-chip primary">GDScript</span>
+          <span class="skill-chip">Ruby / RGSS</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">C#</span>
+          <span class="skill-chip">Unity</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-cat-label">Multiplayer &amp; Networking</div>
+        <div class="skill-chips">
+          <span class="skill-chip primary">Authoritative servers</span>
+          <span class="skill-chip primary">MultiplayerSynchronizer</span>
+          <span class="skill-chip primary">RPCs</span>
+          <span class="skill-chip primary">WebSocket</span>
+          <span class="skill-chip">Real-time state sync</span>
+          <span class="skill-chip">Lag compensation</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-cat-label">Backend &amp; Infrastructure</div>
+        <div class="skill-chips">
+          <span class="skill-chip">REST / HTTP APIs</span>
+          <span class="skill-chip">Microservices</span>
+          <span class="skill-chip">AWS EC2</span>
+          <span class="skill-chip">SQL</span>
+          <span class="skill-chip">MongoDB</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-cat-label">Game Systems</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Combat</span>
+          <span class="skill-chip">Inventory</span>
+          <span class="skill-chip">Economy</span>
+          <span class="skill-chip">Progression</span>
+          <span class="skill-chip">Save / load</span>
+          <span class="skill-chip">State machines</span>
+          <span class="skill-chip">Procedural generation</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-cat-label">Platforms &amp; Practices</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Android</span>
+          <span class="skill-chip">HTML5 / Web</span>
+          <span class="skill-chip">Windows</span>
+          <span class="skill-chip">Linux</span>
+          <span class="skill-chip">Git</span>
+          <span class="skill-chip">Level design / TileMap</span>
+          <span class="skill-chip">Performance optimization</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -909,15 +963,12 @@
     setTimeout(step, 900);
   })();
 
-  /* ── Scroll reveal + skill bars ── */
+  /* ── Scroll reveal ── */
   (function(){
     const obs = new IntersectionObserver(entries=>{
       entries.forEach(e=>{
         if(!e.isIntersecting) return;
         e.target.classList.add('in');
-        if(e.target.id==='skills-grid'){
-          e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('go'));
-        }
         obs.unobserve(e.target);
       });
     },{threshold:0.12});
