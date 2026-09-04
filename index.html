@@ -445,9 +445,12 @@
     }
     .card-screenshots {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.4rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
       margin-bottom: 1rem;
+    }
+    @media (max-width: 640px) {
+      .card-screenshots { grid-template-columns: 1fr; }
     }
     .card-screenshots img {
       width: 100%;
@@ -456,12 +459,11 @@
       border: 1px solid var(--border);
       background: var(--surface);
       display: block;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .card-screenshots img:hover { border-color: var(--accent); }
-    .card-screenshots img[src=""] {
-      background: var(--surface);
-      border: 1px dashed var(--border);
+    .card-screenshots img:hover {
+      border-color: var(--accent);
+      transform: scale(1.015);
     }
 
     /* ─── SKILLS ─── */
@@ -740,11 +742,12 @@
         <p class="card-subsection">Level Design</p>
         <p>Built all game maps from the director's hand-drawn sketches and placeholder prototypes — translating rough layout concepts and early functional mockups into playable environments with proper flow, collision layers, and visual depth across multiple tilesets.</p>
 
-        <!-- SCREENSHOTS: replace src="" with your image paths, e.g. src="img/histrobea/map-01.jpg" -->
+        <!-- SCREENSHOTS: level design work from Histrobea Chronicles -->
         <div class="card-screenshots">
-          <img src="" alt="Histrobea map area 1" title="Replace src with your screenshot path" />
-          <img src="" alt="Histrobea map area 2" title="Replace src with your screenshot path" />
-          <img src="" alt="Histrobea map area 3" title="Replace src with your screenshot path" />
+          <img src="img/histrobea/map-01.jpg" alt="Histrobea Chronicles level design — outdoor route with NPCs, signage and terrain transitions" loading="lazy" />
+          <img src="img/histrobea/map-02.jpg" alt="Histrobea Chronicles level design — coastal area with tall grass, cliffs and water boundaries" loading="lazy" />
+          <img src="img/histrobea/map-03.jpg" alt="Histrobea Chronicles level design — night-time rocky zone with layered pathing" loading="lazy" />
+          <img src="img/histrobea/map-04.jpg" alt="Histrobea Chronicles level design — interior map with dialogue system in use" loading="lazy" />
         </div>
 
         <div class="tech-row">
