@@ -374,6 +374,18 @@
       max-width: 840px;
       margin: 0 auto;
     }
+    .testimonial-inner + .testimonial-inner {
+      margin-top: 1.6rem;
+    }
+    .card-formerly {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-transform: none;
+      margin-left: 0.4rem;
+    }
     .testimonial-quote {
       position: relative;
       padding: 2.5rem 2.5rem 2.5rem 3.5rem;
@@ -680,7 +692,7 @@
           <span class="badge badge-c">Contract</span>
           <span class="card-year">Jun 2025 – Present</span>
         </div>
-        <h3>MiniMetaMon</h3>
+        <h3>Memorandum <span class="card-formerly">(formerly MiniMetaMon)</span></h3>
         <p class="card-role">2D RPG · Multiplayer Architecture · Remote Team (USA)</p>
         <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend HTTP microservice for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance. Also designed a large-scale multilayer TileMap world (scope under NDA).</p>
         <p class="card-note">Note: the client is a web3-oriented franchise. My contribution was the engine and server architecture — the tokenomics layer was handled separately by the project owner.</p>
@@ -802,6 +814,17 @@
             &nbsp;·&nbsp; 400K+ subscribers
           </span>
           <span class="testimonial-project">Histrobea Chronicles · Lead Programmer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-inner reveal d2">
+      <div class="testimonial-quote">
+        <p class="testimonial-text">What I value most about Larry is how reliably he works. He communicates clearly, stays organized, and follows through on his commitments. He is highly self-disciplined and manages his work independently. His judgment is particularly strong: he asks questions when clarification matters and uses the context available to fill in gaps and move work forward appropriately. I would gladly hire him again for future projects and recommend him as a capable, dependable developer and colleague.</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Kyle King</span>
+          <span class="testimonial-meta">Project Owner</span>
+          <span class="testimonial-project">Memorandum · Software Engineer</span>
         </div>
       </div>
     </div>
