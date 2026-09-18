@@ -456,6 +456,15 @@
       line-height: 1.6;
     }
 
+    .mono-inline {
+      font-family: var(--ff-mono);
+      font-size: 0.88em;
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.08em 0.3em;
+      border-radius: 3px;
+    }
+
     /* ─── CARD SCREENSHOTS ─── */
     .card-subsection {
       font-family: var(--ff-mono);
@@ -694,8 +703,14 @@
         </div>
         <h3>Memorandum <span class="card-formerly">(formerly MiniMetaMon)</span></h3>
         <p class="card-role">2D RPG · Multiplayer Architecture · Remote Team (USA)</p>
-        <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend HTTP microservice for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance. Also designed a large-scale multilayer TileMap world (scope under NDA).</p>
-        <p class="card-note">Note: the client is a web3-oriented franchise. My contribution was the engine and server architecture — the tokenomics layer was handled separately by the project owner.</p>
+        <p>Built the game server and playable client in Godot 4 for an international remote team (USA). Implemented Godot's high-level multiplayer (MultiplayerSynchronizer + RPCs) over WebSocket. Consumed a backend HTTP microservice for authentication, inventory, economy persistence, world state, and player achievements. Game server deployed on AWS EC2, supporting up to 500 concurrent players per instance.</p>
+
+        <p class="card-subsection">World &amp; Game Design</p>
+        <p>Designed and authored the open world — a 500 × 500-tile overworld across dozens of TileMap layers — on a multi-tier elevation system that gives a pure-2D engine real verticality. Each level's colliders sit on their own physics layer, so the player only collides with the terrace they are standing on, and paired stair triggers shift collision layer, mask and <span class="mono-inline">z_index</span> in a single crossing so climbing collides and draws in the right order. Click-to-move traversal, no navigation mesh.</p>
+        <p>Across the world, outlying zone instances are isolated through spatial interest management, and environment detail uses on-screen culling with a wind shader that retunes as areas enter view. The server runs a collision-only twin of the map — proximity checks and an authoritative node registry.</p>
+        <p class="card-note">World art, lore and naming are under NDA.</p>
+
+        <p class="card-note">Note: the client is a web3-oriented franchise. My contribution was the engine, server architecture and world design — the tokenomics layer was handled separately by the project owner.</p>
         <div class="tech-row">
           <span class="tech">Godot 4</span>
           <span class="tech">GDScript</span>
@@ -704,7 +719,11 @@
           <span class="tech">WebSocket</span>
           <span class="tech">HTTP / REST</span>
           <span class="tech">AWS EC2</span>
-          <span class="tech">TileMap</span>
+          <span class="tech">TileMapLayer</span>
+          <span class="tech">2.5D Elevation</span>
+          <span class="tech">Shaders</span>
+          <span class="tech">World Design</span>
+          <span class="tech">Interest Management</span>
           <span class="tech">Web + Desktop</span>
         </div>
         <div class="links-row">
